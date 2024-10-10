@@ -5,7 +5,7 @@ import axios from 'axios';
 import { formatDate } from './assets/utility/common';
 //import API from './../config';
 import envObject from './constants/common';
-
+import url from './url';
 const App = () => {
   const [fileArray, setFileArray] = useState([]);
 
@@ -15,7 +15,12 @@ const App = () => {
 
   const getGridData = async () => {
     try {
-      const response = await axios.get(`${envObject.VITE_API_BASE_URL_PROD}excelupload/get_grid_record`);
+      const URL=url()==true?envObject.VITE_API_BASE_URL_DEV:envObject.VITE_API_BASE_URL_PROD;
+      const response = await axios.get(`${URL}/get_grid_record`,{
+        headers: {
+          'api-key': url()==true?envObject.API_KEY_DEV:envObject.API_KEY_PROD,
+          'accept': 'application/json'
+        }});
       if (response.data && response.data.data.length) {
         const customizedData = response.data.data.map((item)=> {
           return {...item,timestamp: formatDate(item.timestamp, 'display-date-Time')}
