@@ -5,7 +5,7 @@
 // };
 
 window.configs = {
-    apiUrl: '/choreo-apis/eydemo/excel-upload-framework/v1/',
+    apiUrl: '/choreo-apis/eydemo/excel-upload-framework/v1',        
 };
 
 // export default config;

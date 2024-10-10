@@ -7,7 +7,7 @@ const UploadFile = () => {
 
     const props = {
         name: 'file',
-        action: `${ envObject.VITE_API_BASE_URL_PROD }excelupload/upload_rate_excel`,
+        action: `${ envObject.VITE_API_BASE_URL_PROD }/excelupload/upload_rate_excel`,
         headers: {
           authorization: 'authorization-text',
         },
