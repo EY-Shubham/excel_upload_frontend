@@ -4,7 +4,7 @@ import UploadFile from '../uploadFile/uploadFile';
 import axios from 'axios';
 import { formatDate } from '../../assets/utility/common';
 import envObject from '../../constants/common';
-import url from '../../url';
+
 
 const { Search } = Input;
 const styleAction1 = {
@@ -46,13 +46,8 @@ const DynamicTable = ({ fileArray }) => {
   };
 
   const handleDownload = async(e, record) => {
-    try { 
-      const URL=url()==true?envObject.VITE_API_BASE_URL_DEV:envObject.VITE_API_BASE_URL_PROD;
-      const res = await axios.get(`${URL}/get_all_transform_record?uploadId=${record.summeryDataId}`, {
-        headers: {
-          'api-key': url()==true?envObject.API_KEY_DEV:envObject.API_KEY_PROD,
-          'accept': 'application/json'
-        }});
+    try {
+      const res = await axios.get(`${ envObject.VITE_API_BASE_URL_PROD }/get_all_transform_record?uploadId=${record.summeryDataId}`)
       if (res.data.status && res.data.status == 'success') {
         const jsonString = JSON.stringify(res.data.data);
         const blob = new Blob([jsonString], { type: "application/json" });
@@ -184,15 +179,9 @@ const CalculatePremiumForm = ({resetForm, uploadID}) => {
   const onFinish = async (values) => {
     console.log('Success:', values);
     try {
-      
-      const URL=url()==true?envObject.VITE_API_BASE_URL_DEV:envObject.VITE_API_BASE_URL_PROD;
       const { gender,tobacco,productTerm, age, ppt, fromDate, varientCode } = values;
       const fDate = formatDate(fromDate, 'form-date');
-      const response = await axios.get(`${URL}/single_premium_record?age=${age}&ppt=${ppt}&from=${fDate}&gender=${gender}&variant_code=${varientCode}&product_term=${productTerm}&tobacco=${tobacco}&uploadId=${uploadID}`, {
-        headers: {
-          'api-key': url()==true?envObject.API_KEY_DEV:envObject.API_KEY_PROD,
-          'accept': 'application/json'
-        }})
+      const response = await axios.get(`${ envObject.VITE_API_BASE_URL_PROD }/single_premium_record?age=${age}&ppt=${ppt}&from=${fDate}&gender=${gender}&variant_code=${varientCode}&product_term=${productTerm}&tobacco=${tobacco}&uploadId=${uploadID}`)
       console.log(response);
       if (response.data.status == "success" && response.data.data) {
         if (response.data.data.premium) setPremiumPrc(response.data.data.premium);

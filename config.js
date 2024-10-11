@@ -1,11 +1,7 @@
-// import 'dotenv/config';
+import 'dotenv/config';
 
-// const config = {
-//     apiBaseUrl: import.meta.env.apiBaseUrl
-// };
-
-window.configs = {
-    apiUrl: '/choreo-apis/eydemo/excel-upload-framework/v1/',        
+const config = {
+    apiBaseUrl: import.meta.env.apiBaseUrl
 };
 
-// export default config;
+export default config;
